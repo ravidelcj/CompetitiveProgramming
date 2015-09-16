@@ -1,0 +1,40 @@
+//https://www.codechef.com/problems/CHEFGR
+
+#include<stdio.h>
+ 
+int main()
+{
+    int t,flag=0;
+    int n,m,i,max;
+    int arr[200];
+    scanf("%d",&t);
+    while(t--)
+    {
+        flag=0;
+        max=0;
+        scanf("%d %d",&n,&m);
+        for(i=0;i<n;i++)
+        {
+             scanf("%d",&arr[i]);
+             if(max<arr[i])
+                max=arr[i];
+        }
+        for(i=0;i<n;i++)
+        {
+            if(arr[i]<max)
+            {
+                m=m-(max-arr[i]);
+                if(m<0)
+                 {
+                     flag=1;
+                     break;
+                 }
+            }
+        }
+        if(flag==0&&(m==0||m%n==0))
+            printf("Yes\n");
+        else
+            printf("No\n");
+    }
+    return 0;
+}
