@@ -1,0 +1,30 @@
+//http://www.spoj.com/problems/ENIGMATH/
+
+#include<cstdio>
+
+long long gcd(long long a,long long b)
+{
+    if(b==0)
+        return a;
+    else
+        return gcd(b,a%b);
+}
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    while(t--)
+    {
+        long long a,b;
+        scanf("%lld%lld",&a,&b);
+        long long ans=gcd(a,b);
+        while(ans!=1)
+        {
+            a=a/ans;
+            b=b/ans;
+            ans=gcd(a,b);
+        }
+        printf("%lld %lld\n",b,a);
+    }
+    return 0;
+}
