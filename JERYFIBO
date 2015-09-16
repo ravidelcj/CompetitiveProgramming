@@ -1,0 +1,30 @@
+//https://www.codechef.com/problems/JERYFIBO/
+
+#include<stdio.h>
+ 
+int main()
+{
+    int t;
+    unsigned long long sum1,n,sum=0,prev;
+    scanf("%d",&t);
+ 
+    while(t--)
+    {
+        sum=1;
+        prev=1;
+        sum1=0;
+        scanf("%llu",&n);
+        while(sum<n)
+        {
+            sum1=sum+prev;
+            prev=sum;
+             sum=sum1;
+        }
+        if(sum==n)
+            printf("is fibo\n");
+        else
+            printf("not fibo\n");
+    }
+    return 0;
+}
+ 
