@@ -1,0 +1,33 @@
+//https://www.codechef.com/problems/STIKGAME/
+
+#include<iostream>
+#include<algorithm>
+#include<cstdio>
+using namespace std;
+int main()
+{
+    int n,a[2004],i,j,k,k1,ans;
+    while(1)
+    {
+    scanf("%d",&n);
+    if(n==0)
+    break;
+    ans=0;
+    for(i=0;i<n;i++)
+    scanf("%d",&a[i]);
+    // a[n]=1000006;
+    sort(a,a+n);
+    for(i=0;i<n;i++)
+    {
+    for(j=i+1,k=j+1;k<n;j++)
+    {
+    while(k< n && a[k]<=a[i]+a[j])
+    k++;
+    k1=n-k;
+    ans+=k1;
+    }
+    }
+    printf("%d\n",ans);
+    }
+    return 0;
+}   
