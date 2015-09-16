@@ -1,0 +1,40 @@
+//https://www.codechef.com/problems/CHEFSTON/
+
+#include<cstdio>
+#include<vector>
+typedef unsigned long long ull;
+using namespace std;
+ 
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    while(t--)
+    {
+       ull n,k;
+       scanf("%lld%lld",&n,&k);
+       vector<ull> a,b;
+       for(ull i=0;i<n;i++)
+       {
+           ull val;
+           scanf("%lld",&val);
+           a.push_back(val);
+       }
+       for(ull i=0;i<n;i++)
+       {
+           ull val;
+           scanf("%lld",&val);
+           b.push_back(val);
+       }
+       ull max=0;
+       for(ull i=0;i<n;i++)
+       {
+           ull qu=k/a.at(i);
+           b.at(i)=b.at(i)*qu;
+           if(b.at(i)>max)
+            max=b.at(i);
+       }
+       printf("%lld\n",max);
+    }
+    return 0;
+}
