@@ -1,0 +1,68 @@
+//https://www.codechef.com/problems/PRLADDU/
+
+#include<stdio.h>
+#define MAX 100000
+ 
+int main()
+{
+    long t,n,negCheck;
+    long res[MAX];
+    long pos[MAX],neg[MAX];    //For Storing positive and negative index
+    long i,j,k,size_pos,size_neg;
+    unsigned long long sum;
+    scanf("%ld",&t);
+    while(t--)
+    {
+        sum=0;
+        scanf("%ld",&n);
+        i=0;j=0;k=0;
+          for(i=0;i<n;i++)
+          {
+              scanf("%ld",&res[i]);
+              if(res[i]<0)       //NOT COMSIDERING ZERO CASE
+              {
+                  neg[j++]=i;
+              }
+              else if(res[i]>=0)
+              {
+                  pos[k++]=i;
+              }
+          }
+          size_pos=k;
+          size_neg=j;
+          if(j==0)
+            printf("0\n");
+          else{
+          for(i=0;i<size_pos;i++)
+          {
+              for(j=0;j<size_neg;j++)
+              {
+                  if(res[pos[i]]==0)     // TO CHECK WHETHER THE RESULTING ARRAY IS ZERO
+                    i++;
+                  if(res[pos[i]]>=(-res[neg[j]]))
+                  {
+                      negCheck=neg[j]-pos[i];
+                      if(negCheck<0)         //if negCheck is negative change it to positive
+                        negCheck=-negCheck;
+                      sum=sum+(negCheck*(-res[neg[j]]));     //calculating sum
+                      res[pos[i]]=res[pos[i]]+res[neg[j]];
+                      res[neg[j]]=0;
+                  }
+                  else
+                  {
+                      negCheck=neg[j]-pos[i];
+                      if(negCheck<0)         //if negCheck is negative change it to positive
+                        negCheck=-negCheck;
+                      sum=sum+(negCheck*res[pos[i]]);
+                      res[neg[j]]=res[neg[j]]+res[pos[i]];
+                      res[pos[i]]=0;
+                }
+                if(res[neg[j]]!=0)
+                    j=j-1;
+              }//jLOOP
+          }//iLOOP
+          printf("%llu\n",sum);
+          }//else
+    }//WHILE
+    return 0;
+}
