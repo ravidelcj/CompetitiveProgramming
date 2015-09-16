@@ -1,0 +1,37 @@
+//http://www.spoj.com/problems/TRGRID/
+
+#include<cstdio>
+
+int main()
+{
+    int tl;
+    scanf("%d",&tl);
+    while(tl--)
+    {
+
+        long long n,m;
+        scanf("%lld%lld",&n,&m);
+        if(n>m)
+        {
+            if(m%2==0)
+                printf("U\n");
+            else
+                printf("D\n");
+        }
+        else if(m>n)
+        {
+            if(n%2==0)
+                printf("L\n");
+            else
+                printf("R\n");
+        }
+        else
+        {
+            if(n%2==0)
+                printf("L\n");
+            else
+                printf("R\n");
+        }
+    }
+    return 0;
+}
