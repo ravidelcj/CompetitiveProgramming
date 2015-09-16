@@ -1,0 +1,45 @@
+//https://www.codechef.com/problems/CHFFIELD/
+
+#include<stdio.h>
+#include<math.h>
+int primeCheck(long long n)
+{
+    int flag=0;
+    long long sq,i;
+    sq=sqrt(n);
+    i=2;
+    while(i<=sq)
+    {
+        if(n%i==0)
+        {
+            flag=1;
+            break;
+        }
+        i++;
+    }
+    if(flag==0)
+        return 1;   //is prime
+    else
+        return 0;    //not prime
+}
+int main()
+{
+    int t;
+    long long l,b;
+    scanf("%d",&t);
+    while(t--)
+    {
+        scanf("%llu %llu",&l,&b);
+        if(primeCheck(l)&&l!=1&&l!=3)
+            l=l-1;
+        if(primeCheck(b)&&b!=1&&b!=3)
+            b=b-1;
+        if(l==3)
+            l=1;
+        if(b==3)
+            b=1;
+        l=l*b;
+        printf("%llu\n",l);
+    }
+    return 0;
+}
