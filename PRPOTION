@@ -1,0 +1,110 @@
+//https://www.codechef.com/problems/PRPOTION/
+
+#include<stdio.h>
+ 
+int main()
+{
+    int t,r,g,b,m;
+    unsigned long long arrR[100],arrG[100],arrB[100],rMax,gMax,bMax,i;
+    scanf("%d",&t);
+    while(t--)
+    {
+        rMax=0;
+        gMax=0;
+        bMax=0;
+        i=0;
+        scanf(" %d %d %d %d",&r,&g,&b,&m);
+ 
+ 
+ 
+        for(i=0;i<r;i++)
+        {
+            scanf("%llu",&arrR[i]);
+            if(rMax<arrR[i])
+                rMax=arrR[i];
+        }
+ 
+ 
+        for(i=0;i<g;i++)
+        {
+            scanf("%llu",&arrG[i]);
+            if(gMax<arrG[i])
+                gMax=arrG[i];
+        }
+ 
+        for(i=0;i<b;i++)
+        {
+            scanf("%llu",&arrB[i]);
+            if(bMax<arrB[i])
+                bMax=arrB[i];
+        }
+ 
+ 
+        while(m--)
+        {
+            if(rMax>gMax)
+            {
+                if(rMax>bMax)
+                {
+                    rMax=0;
+                    for(i=0;i<r;i++)
+                    {
+                        arrR[i]=arrR[i]/2;
+                        if(rMax<arrR[i])
+                            rMax=arrR[i];
+                    }
+                }//inner_if
+                else
+                {
+                    bMax=0;
+                    for(i=0;i<b;i++)
+                    {
+                        arrB[i]=arrB[i]/2;
+                        if(bMax<arrB[i])
+                            bMax=arrB[i];
+                    }
+                }//inner_else
+            }//if
+            else
+            {
+                if(gMax>bMax)
+                {
+                    gMax=0;
+                    for(i=0;i<g;i++)
+                    {
+                        arrG[i]=arrG[i]/2;
+                        if(gMax<arrG[i])
+                            gMax=arrG[i];
+                    }
+                }//inner_if
+                else
+                {
+                    bMax=0;
+                    for(i=0;i<b;i++)
+                    {
+                        arrB[i]=arrB[i]/2;
+                        if(bMax<arrB[i])
+                            bMax=arrB[i];
+                    }
+                }//inner_else
+            }//else
+ 
+        }//inner_while
+ 
+         if(rMax>gMax)
+         {
+             if(rMax>bMax)
+                printf("%llu\n",rMax);
+             else
+                printf("%llu\n",bMax);
+         }
+         else
+         {
+             if(gMax>bMax)
+                printf("%llu\n",gMax);
+             else
+                printf("%llu\n",bMax);
+         }
+    }//while
+    return 0;
+}
