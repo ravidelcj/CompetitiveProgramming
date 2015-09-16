@@ -1,0 +1,32 @@
+//https://www.codechef.com/problems/ANUWTA/
+
+#include<stdio.h>
+#define g() getchar()
+ 
+unsigned long long input()
+{
+    unsigned long long n=0;
+    char a;
+    a=g();
+    while(a>=48&&a<=57)
+    {
+        n=n*10+(a-48);
+        a=g();
+    }
+    return n;
+}
+int main()
+{
+    unsigned long long t,n,sum;
+    t=input();
+    while(t--)
+    {
+        sum=0;
+        n=input();
+        sum=n*(n+1)/2;
+        sum=sum+n;
+ 
+        printf("%llu\n",sum);
+    }
+    return 0;
+}
