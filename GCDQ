@@ -1,0 +1,69 @@
+//https://www.codechef.com/problems/GCDQ/
+//GCD QUERY USING SEGMENT TREE
+//ALLTHOUGH THIS CAN BE SOLVED USING NORMAL DP APPROACH
+//THIS IS TO DEMONSTRATE A SEGMENT TREE
+
+
+#include<cstdio>
+#define M 100009
+#define MAX 300009
+long long n,q;
+long long arr[M],tree[MAX];
+
+long long gcd(long long a,long long b)
+{
+    if(b==0)
+        return a;
+    else
+    {
+        return gcd(b,a%b);
+    }
+}
+
+void build(long long s,long long e,long long index)
+{
+    if(s==e)
+    {
+        tree[index]=arr[s];
+        return ;
+    }
+
+    long long mid=(s+e)/2.0;
+
+    build(s,mid,2*index+1);
+    build(mid+1,e,2*index+2);
+    tree[index]=gcd(tree[2*index+1],tree[2*index+2]);
+    return ;
+}
+
+long long query(long long s,long long e,long long qs,long long qe,long long index)
+{
+    if(s>e||s>qe||e<qs)
+        return 0;
+    if(s>=qs&&e<=qe)
+        return tree[index];
+
+    long long mid=(s+e)/2.0;
+
+    return gcd(query(s,mid,qs,qe,2*index+1),query(mid+1,e,qs,qe,2*index+2));
+}
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    while(t--)
+    {
+        scanf("%lld%lld",&n,&q);
+        for(int i=0;i<n;i++)
+            scanf("%lld",&arr[i]);
+
+        build(0,n-1,0);
+        while(q--)
+        {
+            long long x,y;
+            scanf("%lld%lld",&x,&y);
+            long long ans=gcd(query(0,n-1,0,x-2,0),query(0,n-1,y,n-1,0));
+            printf("%lld\n",ans);
+        }
+    }
+}
