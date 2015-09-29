@@ -1,0 +1,34 @@
+//http://www.spoj.com/problems/MRECAMAN/
+
+#include<bits/stdc++.h>
+
+using namespace std;
+long long ans[500005];
+long long arr[10000000];
+int main()
+{
+
+    arr[0]=1;
+    ans[0]=0;
+    long long i;
+    for(i=1;i<=500001;i++)
+    {
+        if((ans[i-1]-i)>0&&arr[ans[i-1]-i]!=1)
+        {
+            ans[i]=ans[i-1]-i;
+        }
+        else
+        {
+            ans[i]=ans[i-1]+i;
+        }
+        arr[ans[i]]=1;
+    }
+    int k;
+    scanf("%d",&k);
+    while(k!=-1)
+    {
+        printf("%lld\n",ans[k]);
+        scanf("%d",&k);
+    }
+    return 0;
+}
