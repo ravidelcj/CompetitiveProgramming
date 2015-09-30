@@ -1,0 +1,116 @@
+//http://www.spoj.com/problems/HORRIBLE/
+
+#include<cstdio>
+#define M 1000000
+
+long long tree[M],lazy[M],v;
+
+void update(int s,int e,int qs,int qe,int index)
+{
+
+    if(lazy[index]!=0)
+    {
+        tree[index]+=(e-s+1)*lazy[index];
+        if(s!=e)
+        {
+            lazy[2*index+1]+=lazy[index];
+            lazy[2*index+2]+=lazy[index];
+        }
+        lazy[index]=0;
+      //  return ;
+    }
+if(s>e||s>qe||e<qs)
+        return ;
+    if(s>=qs&&e<=qe)
+    {
+        tree[index]+=(e-s+1)*v;
+        if(s!=e)
+        {
+            lazy[2*index+1]+=v;
+            lazy[2*index+2]+=v;
+        }
+        return ;
+    }
+    int mid=(s+e)/2;
+    update(s,mid,qs,qe,2*index+1);
+    update(mid+1,e,qs,qe,2*index+2);
+    tree[index]=tree[2*index+1]+tree[2*index+2];
+    return ;
+}
+
+
+long long query(int s,int e,int qs,int qe,int index)
+{
+
+  //  printf("Test\n");
+    if(lazy[index]!=0)
+    {
+        tree[index]+=(e-s+1)*lazy[index];
+        if(s!=e)
+        {
+            lazy[2*index+1]+=lazy[index];
+            lazy[2*index+2]+=lazy[index];
+        }
+        lazy[index]=0;
+    }
+ if(s>e||s>qe||e<qs)
+        return 0;
+    if(s>=qs&&e<=qe)
+    {
+        return tree[index];
+    }
+    int mid=(s+e)/2;
+
+    return query(s,mid,qs,qe,2*index+1)+query(mid+1,e,qs,qe,2*index+2);
+}
+
+void build(int s,int e,int index)
+{
+    if(s>e)
+        return;
+    if(s==e)
+    {
+        tree[index]=0;
+        lazy[index]=0;
+        return ;
+    }
+    int mid=(s+e)/2;
+    build(s,mid,2*index+1);
+    build(mid+1,e,2*index+2);
+    tree[index]=tree[2*index+1]+tree[2*index+2];
+    lazy[index]=tree[index];
+    return ;
+}
+int main()
+{
+
+    int t;
+    scanf("%d",&t);
+    while(t--)
+    {
+        int n,c,p,q;
+        scanf("%d%d",&n,&c);
+
+        build(0,n-1,0);
+        while(c--)
+        {
+            int temp;
+            scanf("%d",&temp);
+            if(temp==0)
+            {
+                scanf("%d%d%lld",&p,&q,&v);
+                p--;
+                q--;
+                update(0,n-1,p,q,0);
+            }
+            else
+            {
+                scanf("%d%d",&p,&q);
+                p--;
+                q--;
+                printf("%lld\n",query(0,n-1,p,q,0));
+            }
+        }
+    }
+       return 0;
+}
