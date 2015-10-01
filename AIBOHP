@@ -1,0 +1,42 @@
+//http://www.spoj.com/problems/AIBOHP/
+
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+
+
+using namespace std;
+#define M 6109
+
+int dp[M][M];
+int main()
+{
+    char str1[M];
+    int t;
+    scanf("%d",&t);
+    while(t--)
+    {
+        scanf("%s",str1);
+        int n=strlen(str1);
+        for(int i=0;i<=n;i++){
+            dp[i][0]=0;
+            dp[0][i]=0;
+        }
+        int k=n;
+        for(int i=1;i<=n;i++)
+        {
+            k=n;
+            for(int j=1;j<=n&&k>=1;j++)
+            {
+                if(str1[i-1]==str1[k-1])
+                    dp[i][j]=dp[i-1][j-1]+1;
+                else
+                    dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+                k--;
+
+            }
+ 
+        }
+        printf("%d\n",n-dp[n][n]);
+    }
+}
