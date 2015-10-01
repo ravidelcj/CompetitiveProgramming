@@ -1,0 +1,36 @@
+//http://www.spoj.com/problems/AMR10G/
+
+#include<cstdio>
+#include<algorithm>
+
+
+using namespace std;
+long long height[20009];
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    while(t--)
+    {
+        int n,k;
+        scanf("%d%d",&n,&k);
+        for(int i=0;i<n;i++)
+            scanf("%lld",&height[i]);
+        if(k==1)
+            printf("0\n");
+        else{
+        sort(height,height+n);
+        int j=0;
+        long long min=1000000000;
+        for(int i=k-1;i<n;i++)
+        {
+            int temp=height[i]-height[j];
+            if(temp<min)
+                min=temp;
+            j++;
+        }
+        printf("%lld\n",min);
+        }
+    }
+    return 0;
+}
