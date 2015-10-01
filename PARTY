@@ -1,0 +1,71 @@
+//http://www.spoj.com/problems/PARTY/
+
+#include<cstdio>
+ 
+struct node
+{
+    int value,weight;
+};
+int weight[109],val[109];
+node dp[101][501];
+ 
+int main()
+{
+    int w,n;
+    while(scanf("%d%d",&w,&n)==2)
+    {
+        if(w==0&&n==0)
+            break;
+ 
+        for(int i=0;i<n;i++)
+        {
+            scanf("%d%d",&weight[i],&val[i]);
+        }
+        for(int i=0;i<=w;i++){
+            dp[0][i].value=0;
+            dp[0][i].weight=0;
+        }
+        for(int i=0;i<=n;i++)
+        {
+            dp[i][0].value=0;
+            dp[i][0].weight=0;
+        }
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=w;j++)
+            {
+                if(j<weight[i-1])
+                    dp[i][j]=dp[i-1][j];
+                else
+                {
+ 
+                    if((dp[i-1][j].value)>(val[i-1]+dp[i-1][j-weight[i-1]].value))
+                    {
+                        dp[i][j]=dp[i-1][j];
+                    }
+                    else if((dp[i-1][j].value)<(val[i-1]+dp[i-1][j-weight[i-1]].value))
+                    {
+                        dp[i][j].value=val[i-1]+dp[i-1][j-weight[i-1]].value;
+                        dp[i][j].weight=weight[i-1]+dp[i-1][j-weight[i-1]].weight;
+                    }
+                    else
+                    {
+                        if(dp[i-1][j].weight<=weight[i-1]+dp[i-1][j-weight[i-1]].weight)
+                        {
+                            dp[i][j]=dp[i-1][j];
+                        }
+                        else
+                        {
+                             dp[i][j].value=val[i-1]+dp[i-1][j-weight[i-1]].value;
+                             dp[i][j].weight=weight[i-1]+dp[i-1][j-weight[i-1]].weight;
+                        }
+ 
+                    }//else
+ 
+                }//else
+            }//jloop
+        }//iloop
+ 
+        printf("%d %d\n",dp[n][w].weight,dp[n][w].value);
+    }
+}
