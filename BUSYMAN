@@ -1,0 +1,57 @@
+//http://www.spoj.com/problems/BUSYMAN/
+#include<cstdio>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+bool compare(const pair<int,int> &i,const pair<int,int > &j)
+{
+    return i.second<j.second ;
+}
+
+
+int activityRecur(vector<pair<int ,int > > v,int k,int n)
+{
+
+    int m=k+1;
+    while(m<=n)
+    {
+        pair<int ,int> a,b;
+        a=v[m];
+        b=v[k];
+        if(a.first>=b.second)
+            break;
+        m=m+1;
+    }
+    if(m<=n)
+        return 1+activityRecur(v,m,n);
+    else
+        return 0;
+}
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    while(t--)
+    {
+        int n;
+        scanf("%d",&n);
+        vector<pair<int,int> > v;
+        pair<int,int> b;
+        b.first=0;
+        b.second=-1;
+        v.push_back(b);
+        for(int i=0;i<n;i++)
+        {
+            scanf("%d",&b.first);
+            scanf("%d",&b.second);
+            v.push_back(b);
+        }
+
+        sort(v.begin(),v.end(),compare);
+        int ans=activityRecur(v,0,n-1);
+        printf("%d\n",ans);
+
+    }
+    return 0;
+}
